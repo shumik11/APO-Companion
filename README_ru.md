@@ -41,7 +41,7 @@
 
 ## ⚙️ Системные требования
 
--   Windows 10 / 11
+-   Windows 10 / 11 (возможна работа на более старых версиях, до Windows 7)
 -   Установленный [Equalizer APO](https://sourceforge.net/projects/equalizerapo/)
 
 #### Для разработчиков (сборка из исходного кода)
