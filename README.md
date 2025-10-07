@@ -2,38 +2,48 @@
 
 [Русская версия](README_ru.md)
 
-A compact and stylish widget for the Windows desktop that allows you to quickly switch between configuration files (presets) for Equalizer APO.
+[![Latest release](https://img.shields.io/github/v/release/shumik11/APO-Companion?style=for-the-badge)](https://github.com/shumik11/APO-Companion/releases/latest)
 
-![Screenshot of the active widget](screenshots/active_widget.png)
+A compact and stylish widget for the Windows desktop that allows you to quickly switch between configuration files (presets) for Equalizer APO. **No installation required.**
 
-![Screenshot of the inactive widget](screenshots/unactive_widget.png)
+<div align="center">
 
-![Screenshot of the tray menu](screenshots/Tray.png)
+| Active Mode | Inactive Mode | Tray Menu |
+| :---: | :---: | :---: |
+| ![alt](screenshots/active_widget.png)| ![Screenshot of the inactive widget](screenshots/unactive_widget.png) | ![Screenshot of the tray menu](screenshots/Tray.png) |
+| _The widget becomes opaque when in focus._ | _The widget becomes semi-transparent when not in focus._ | _Quick access to all features from the system tray._ |
+
+</div>
 
 ## 🚀 Features
 
+-   **Light & Dark Themes:** Choose the look that best fits your desktop.
+-   **Auto-Refresh Presets:** The list updates automatically when you add or remove preset files.
 -   **Quick Switching:** Select equalizer presets directly from your desktop.
 -   **Stylish Interface:** A modern design that looks great on any wallpaper.
 -   **Multilingual Support:** The interface is available in English and Russian.
--   **Tray Control:** Hide and show the widget or manage it through the system tray icon.
--   **Recent Presets List:** Quickly access your most recently used configurations right from the tray menu.
+-   **Visibility Control:** Hide and show the widget through the system tray icon or the widget button.
 -   **Easy Startup Management:** Add or remove the application from Windows startup with a single click.
--   **Customizable Transparency:** The widget is semi-transparent and becomes opaque on mouse hover.
--   **Smart Setup:** Automatically finds Equalizer APO or asks for the path if it's installed in a non-standard location.
+-   **Smart Setup:** Automatically finds your Equalizer APO installation.
 
-## ⚙️ Requirements
+## 📥 Installation
 
--   Windows 10 / 11 (should also work on Windows 7 / 8)
--   .NET Desktop Runtime 8 (or newer) to build from source
--   [Equalizer APO](https://sourceforge.net/projects/equalizerapo/) installed
+No installation needed! The application is **portable**.
 
-## 📝 How to Use
-
-1.  Go to the [Releases](https://github.com/shumik11/APO-Companion/releases/tag/Main) page.
-2.  Download the latest version.
-3.  Run the application.
+1.  Go to the [**Releases Page**](https://github.com/shumik11/APO-Companion/releases).
+2.  Download the `.exe` file from the latest release.
+3.  Run it.
 
 On the first launch, the application will ask you to specify the path to Equalizer APO's `config.txt` file. Then, you can select the folder where your preset `.txt` files are stored.
+
+## ⚙️ System Requirements
+
+-   Windows 10 / 11 (may also work on Windows 7)
+-   [Equalizer APO](https://sourceforge.net/projects/equalizerapo/) installed
+
+#### For Developers (Building from Source)
+-   .NET 8 SDK & Desktop Runtime
+-   Visual Studio 2022
 
 ## ❓ Frequently Asked Questions (FAQ)
 
