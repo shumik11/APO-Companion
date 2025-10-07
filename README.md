@@ -1,8 +1,11 @@
 ﻿# APO Companion
 
-[Русская версия](README_ru.md)
-
-[![Latest release](https://img.shields.io/github/v/release/shumik11/APO-Companion?style=for-the-badge)](https://github.com/shumik11/APO-Companion/releases/latest)
+<p align="center">
+  <a href="README_ru.md">
+    <img src="https://img.shields.io/badge/Читать-на%20Русском-blue?style=for-the-badge&logo=read-the-docs" alt="Русская версия"/>
+  </a>
+  <img src="https://img.shields.io/github/v/release/shumik11/APO-Companion?style=for-the-badge" alt="Latest Release"/>
+</p>
 
 A compact and stylish widget for the Windows desktop that allows you to quickly switch between configuration files (presets) for Equalizer APO. **No installation required.**
 
@@ -10,7 +13,7 @@ A compact and stylish widget for the Windows desktop that allows you to quickly 
 
 | Active Mode | Inactive Mode | Tray Menu |
 | :---: | :---: | :---: |
-| ![alt](screenshots/active_widget.png)| ![Screenshot of the inactive widget](screenshots/unactive_widget.png) | ![Screenshot of the tray menu](screenshots/Tray.png) |
+| ![Screenshot of the active widget](screenshots/active_widget.png) | ![Screenshot of the inactive widget](screenshots/unactive_widget.png) | ![Screenshot of the tray menu](screenshots/Tray.png) |
 | _The widget becomes opaque when in focus._ | _The widget becomes semi-transparent when not in focus._ | _Quick access to all features from the system tray._ |
 
 </div>
