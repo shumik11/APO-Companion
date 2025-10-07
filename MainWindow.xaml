@@ -1,0 +1,66 @@
+﻿<Window x:Class="APO.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:tb="http://www.hardcodet.net/taskbar"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="APO Companion" Height="230" Width="350"
+        WindowStyle="None" AllowsTransparency="True" Background="Transparent"
+        WindowStartupLocation="Manual"
+        ShowInTaskbar="False"
+        MouseEnter="Window_MouseEnter"
+        MouseLeave="Window_MouseLeave"
+        Closing="Window_Closing">
+
+    <Grid>
+        <tb:TaskbarIcon x:Name="notifyIcon" IconSource="/icon.ico" ToolTipText="APO Companion" 
+                      TrayLeftMouseUp="NotifyIcon_TrayLeftMouseUp"
+                      TrayContextMenuOpen="NotifyIcon_TrayContextMenuOpen">
+            <tb:TaskbarIcon.ContextMenu>
+                <ContextMenu>
+                    <MenuItem x:Name="ShowHideMenuItem" Header="Показать виджет" Click="ShowHideMenuItem_Click"/>
+                    <MenuItem x:Name="LockMenuItem" Header="Блокировать" Click="LockMenuItem_Click"/>
+                    <Separator />
+                    <MenuItem Header="Выход" Click="MenuItem_Exit_Click"/>
+                </ContextMenu>
+            </tb:TaskbarIcon.ContextMenu>
+        </tb:TaskbarIcon>
+
+        <materialDesign:Card x:Name="WidgetCard" Padding="15" UniformCornerRadius="15">
+            <Grid MouseLeftButtonDown="Window_MouseLeftButtonDown">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
+                    <TextBlock Text="APO Companion" FontSize="22" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                    <Button Style="{StaticResource MaterialDesignIconButton}" ToolTip="Свернуть в трей" HorizontalAlignment="Right" Click="MinimizeButton_Click" VerticalAlignment="Center" Margin="95,0,0,0">
+                        <materialDesign:PackIcon Kind="WindowMinimize" />
+                    </Button>
+                </StackPanel>
+
+                <TextBlock x:Name="StatusTextBlock" Grid.Row="1" Text="Сначала выберите папку с пресетами" 
+                           FontSize="12" Opacity="0.7" HorizontalAlignment="Center" Margin="0,5,0,5"/>
+
+                <!-- ИЗМЕНЕНО: Строка с иконкой полностью удалена -->
+                <ComboBox x:Name="presetsComboBox" Grid.Row="2" 
+                          materialDesign:HintAssist.Hint="Выберите пресет" 
+                          IsEnabled="False"
+                          Style="{StaticResource MaterialDesignFilledComboBox}" 
+                          SelectionChanged="PresetsComboBox_SelectionChanged" FontSize="14"/>
+
+                <Button x:Name="SelectFolderButton" Grid.Row="3" Margin="0,15,0,0" Click="SelectFolderButton_Click">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <materialDesign:PackIcon Kind="FolderOutline" Margin="0,2,8,0"/>
+                        <TextBlock Text="Выбрать папку"/>
+                    </StackPanel>
+                </Button>
+            </Grid>
+        </materialDesign:Card>
+    </Grid>
+</Window>
