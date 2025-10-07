@@ -1,4 +1,5 @@
-﻿using Microsoft.WindowsAPICodePack.Dialogs;
+﻿using Microsoft.Win32;
+using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
 using System.Collections.Specialized;
 using System.ComponentModel;
@@ -10,7 +11,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using Hardcodet.Wpf.TaskbarNotification;
-// using IWshRuntimeLibrary; // Убедитесь, что эта строка удалена или закомментирована
 
 namespace APO
 {
@@ -19,6 +19,7 @@ namespace APO
         private const byte TRANSPARENT_ALPHA = 80;
         private const byte OPAQUE_ALPHA = 230;
         private const int MAX_RECENT_PRESETS = 5;
+        private const string AppRegistryName = "APO Companion";
 
         private Color _themeBackgroundColor;
         private Color _transparentColor;
@@ -70,8 +71,8 @@ namespace APO
         {
             try
             {
-                if (IsInAutorun()) { RemoveFromAutorun(); notifyIcon.ShowBalloonTip("Автозапуск", "Приложение убрано из автозапуска.", BalloonIcon.Info); }
-                else { AddToAutorun(); notifyIcon.ShowBalloonTip("Автозапуск", "Приложение добавлено в автозапуск.", BalloonIcon.Info); }
+                if (IsInAutorun()) { SetAutorun(false); notifyIcon.ShowBalloonTip("Автозапуск", "Приложение убрано из автозапуска.", BalloonIcon.Info); }
+                else { SetAutorun(true); notifyIcon.ShowBalloonTip("Автозапуск", "Приложение добавлено в автозапуск.", BalloonIcon.Info); }
             }
             catch (Exception ex)
             {
@@ -79,24 +80,33 @@ namespace APO
             }
         }
 
-        private string GetShortcutPath() { string startupFolder = Environment.GetFolderPath(Environment.SpecialFolder.Startup); return Path.Combine(startupFolder, "APO Companion.lnk"); }
-        private bool IsInAutorun() { return System.IO.File.Exists(GetShortcutPath()); }
-
-        private void AddToAutorun()
+        private bool IsInAutorun()
         {
-            string shortcutPath = GetShortcutPath();
-            string exePath = System.Reflection.Assembly.GetExecutingAssembly().Location;
-            using (StreamWriter writer = new StreamWriter(shortcutPath))
+            using (RegistryKey? key = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", false))
             {
-                writer.WriteLine("[InternetShortcut]");
-                writer.WriteLine("URL=file:///" + exePath.Replace('\\', '/'));
-                writer.WriteLine("IconIndex=0");
-                string icon = exePath.Replace('\\', '/');
-                writer.WriteLine("IconFile=" + icon);
+                return key?.GetValue(AppRegistryName) != null;
             }
         }
 
-        private void RemoveFromAutorun() { if (IsInAutorun()) { System.IO.File.Delete(GetShortcutPath()); } }
+        private void SetAutorun(bool enable)
+        {
+            using (RegistryKey key = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true)!)
+            {
+                if (enable)
+                {
+                    string? exePath = Environment.ProcessPath;
+                    if (string.IsNullOrEmpty(exePath))
+                    {
+                        throw new InvalidOperationException("Не удалось определить путь к приложению.");
+                    }
+                    key.SetValue(AppRegistryName, $"\"{exePath}\"");
+                }
+                else
+                {
+                    key.DeleteValue(AppRegistryName, false);
+                }
+            }
+        }
 
         private void BuildRecentPresetsMenu() { var recents = APO.Properties.Settings.Default.RecentPresets; RecentPresetsMenuItem.Items.Clear(); if (recents == null || recents.Count == 0) { RecentPresetsMenuItem.Visibility = Visibility.Collapsed; return; } RecentPresetsMenuItem.Visibility = Visibility.Visible; foreach (var presetName in recents) { var menuItem = new MenuItem { Header = Path.GetFileNameWithoutExtension(presetName) }; string currentPreset = presetName!; menuItem.Click += (s, args) => { _isProgrammaticSelection = true; presetsComboBox.SelectedItem = currentPreset; ApplyPreset(currentPreset); _isProgrammaticSelection = false; }; RecentPresetsMenuItem.Items.Add(menuItem); } }
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) { if (e.ButtonState == MouseButtonState.Pressed) { DragMove(); } }
