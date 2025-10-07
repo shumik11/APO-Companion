@@ -1,5 +1,7 @@
 ﻿# APO Companion
 
+[English version](README.md)
+
 Компактный и стильный виджет для рабочего стола Windows, позволяющий быстро переключаться между конфигурационными файлами (пресетами) для Equalizer APO.
 
 ![Скриншот активного приложения](screenshots/active_widget.png)
