@@ -1,6 +1,11 @@
 ﻿# APO Companion
 
-[English version](README.md)
+<p align="center">
+  <a href="README.md">
+    <img src="https://img.shields.io/badge/Read-in%20English-blue?style=for-the-badge&logo=read-the-docs" alt="Русская версия"/>
+  </a>
+  <img src="https://img.shields.io/github/v/release/shumik11/APO-Companion?style=for-the-badge" alt="Последний релиз"/>
+</p>
 
 Компактный и стильный виджет для рабочего стола Windows, позволяющий быстро переключаться между конфигурационными файлами (пресетами) для Equalizer APO.
 
@@ -8,8 +13,8 @@
 
 | Активный режим | Неактивный режим | Меню в трее |
 | :---: | :---: | :---: |
-| ![alt](screenshots/active_widget.png)| ![Screenshot of the inactive widget](screenshots/unactive_widget.png) | ![Screenshot of the tray menu](screenshots/Tray.png) |
-| _Виджет становится непрозрачным, когда активен._ | _Виджет становится полупрозрачным, когда неактивен._ | _Быстрый доступ ко всем функциям из трея._ |
+| ![Скриншот активного виджета](screenshots/active_widget.png) | ![Скриншот неактивного виджета](screenshots/unactive_widget.png) | ![Скриншот меню в трее](screenshots/Tray.png) |
+| _Виджет становится непрозрачным в фокусе._ | _Виджет становится полупрозрачным, когда неактивен._ | _Быстрый доступ ко всем функциям из трея._ |
 
 </div>
 
