@@ -10,6 +10,8 @@
         WindowStyle="None" AllowsTransparency="True" Background="Transparent"
         WindowStartupLocation="Manual"
         ShowInTaskbar="False"
+        ShowActivated="False" 
+        Topmost="False"
         MouseEnter="Window_MouseEnter"
         MouseLeave="Window_MouseLeave"
         Closing="Window_Closing">
@@ -21,8 +23,10 @@
             <tb:TaskbarIcon.ContextMenu>
                 <ContextMenu>
                     <MenuItem x:Name="ShowHideMenuItem" Header="Показать виджет" Click="ShowHideMenuItem_Click"/>
-                    <MenuItem x:Name="LockMenuItem" Header="Блокировать" Click="LockMenuItem_Click"/>
+                    <MenuItem x:Name="RecentPresetsMenuItem" Header="Последние пресеты" Visibility="Collapsed"/>
+                    <MenuItem x:Name="AutorunMenuItem" Header="Добавить в автозапуск" Click="AutorunMenuItem_Click"/>
                     <Separator />
+                    <MenuItem Header="Сбросить положение" Click="ResetPositionMenuItem_Click"/>
                     <MenuItem Header="Выход" Click="MenuItem_Exit_Click"/>
                 </ContextMenu>
             </tb:TaskbarIcon.ContextMenu>
@@ -39,7 +43,7 @@
 
                 <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
                     <TextBlock Text="APO Companion" FontSize="22" FontWeight="SemiBold" VerticalAlignment="Center"/>
-                    <Button Style="{StaticResource MaterialDesignIconButton}" ToolTip="Свернуть в трей" HorizontalAlignment="Right" Click="MinimizeButton_Click" VerticalAlignment="Center" Margin="95,0,0,0">
+                    <Button Style="{StaticResource MaterialDesignIconButton}" ToolTip="Свернуть в трей" HorizontalAlignment="Right" Click="MinimizeButton_Click" VerticalAlignment="Center" Margin="96,0,0,0">
                         <materialDesign:PackIcon Kind="WindowMinimize" />
                     </Button>
                 </StackPanel>
@@ -47,7 +51,6 @@
                 <TextBlock x:Name="StatusTextBlock" Grid.Row="1" Text="Сначала выберите папку с пресетами" 
                            FontSize="12" Opacity="0.7" HorizontalAlignment="Center" Margin="0,5,0,5"/>
 
-                <!-- ИЗМЕНЕНО: Строка с иконкой полностью удалена -->
                 <ComboBox x:Name="presetsComboBox" Grid.Row="2" 
                           materialDesign:HintAssist.Hint="Выберите пресет" 
                           IsEnabled="False"
@@ -56,7 +59,7 @@
 
                 <Button x:Name="SelectFolderButton" Grid.Row="3" Margin="0,15,0,0" Click="SelectFolderButton_Click">
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                        <materialDesign:PackIcon Kind="FolderOutline" Margin="0,2,8,0"/>
+                        <materialDesign:PackIcon Kind="FolderOutline" Margin="0,0,8,0"/>
                         <TextBlock Text="Выбрать папку"/>
                     </StackPanel>
                 </Button>

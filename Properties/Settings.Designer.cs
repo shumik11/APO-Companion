@@ -70,5 +70,16 @@ namespace APO.Properties {
                 this["WindowLeft"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Collections.Specialized.StringCollection RecentPresets {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["RecentPresets"]));
+            }
+            set {
+                this["RecentPresets"] = value;
+            }
+        }
     }
 }

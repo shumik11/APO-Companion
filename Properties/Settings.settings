@@ -14,5 +14,8 @@
     <Setting Name="WindowLeft" Type="System.Double" Scope="User">
       <Value Profile="(Default)">100</Value>
     </Setting>
+    <Setting Name="RecentPresets" Type="System.Collections.Specialized.StringCollection" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>
