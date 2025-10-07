@@ -23,7 +23,7 @@ A compact and stylish widget for the Windows desktop that allows you to quickly 
 ## ⚙️ Requirements
 
 -   Windows 10 / 11 (should also work on Windows 7 / 8)
--   .NET Desktop Runtime 8 (or newer) to run or build from source
+-   .NET Desktop Runtime 8 (or newer) to build from source
 -   [Equalizer APO](https://sourceforge.net/projects/equalizerapo/) installed
 
 ## 📝 How to Use
