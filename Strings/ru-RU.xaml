@@ -1,0 +1,34 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <!-- Главное окно -->
+    <system:String x:Key="WindowTitle">Компаньон APO</system:String>
+    <system:String x:Key="Header">APO Companion</system:String>
+    <system:String x:Key="MinimizeTooltip">Свернуть в трей</system:String>
+    <system:String x:Key="StatusInitial">Сначала выберите папку с пресетами</system:String>
+    <system:String x:Key="PresetsNotFound">В этой папке пресеты не найдены</system:String>
+    <system:String x:Key="ComboBoxHint">Выберите пресет</system:String>
+    <system:String x:Key="SelectFolderButton">Выбрать папку</system:String>
+
+    <!-- Меню в трее -->
+    <system:String x:Key="ShowWidget">Показать виджет</system:String>
+    <system:String x:Key="HideWidget">Скрыть виджет</system:String>
+    <system:String x:Key="RecentPresets">Последние пресеты</system:String>
+    <system:String x:Key="ResetPosition">Сбросить положение</system:String>
+    <system:String x:Key="AddToAutorun">Добавить в автозапуск</system:String>
+    <system:String x:Key="RemoveFromAutorun">Убрать из автозапуска</system:String>
+    <system:String x:Key="Exit">Выход</system:String>
+    <system:String x:Key="MenuLanguage">Язык</system:String>
+    <system:String x:Key="MenuTheme">Тема</system:String>
+    <system:String x:Key="ThemeLight">Светлая</system:String>
+    <system:String x:Key="ThemeDark">Темная</system:String>
+
+    <!-- Сообщения -->
+    <system:String x:Key="AutorunAdded">Приложение добавлено в автозапуск.</system:String>
+    <system:String x:Key="AutorunAddedBlob">Автозапуск</system:String>
+    <system:String x:Key="AutorunRemoved">Приложение убрано из автозапуска.</system:String>
+    <system:String x:Key="AutorunRemovedBlob">Автозапуск</system:String>
+    <system:String x:Key="AutorunError">Не удалось изменить настройки автозапуска:</system:String>
+
+</ResourceDictionary>

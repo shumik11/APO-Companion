@@ -6,28 +6,34 @@
         xmlns:tb="http://www.hardcodet.net/taskbar"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="APO Companion" Height="230" Width="350"
+        Title="{DynamicResource WindowTitle}" Height="230" Width="350"
         WindowStyle="None" AllowsTransparency="True" Background="Transparent"
-        WindowStartupLocation="Manual"
-        ShowInTaskbar="False"
-        ShowActivated="False" 
-        Topmost="False"
-        MouseEnter="Window_MouseEnter"
-        MouseLeave="Window_MouseLeave"
-        Closing="Window_Closing">
+        WindowStartupLocation="Manual" ShowInTaskbar="False" ShowActivated="False" Topmost="False"
+        MouseEnter="Window_MouseEnter" MouseLeave="Window_MouseLeave" Closing="Window_Closing">
 
     <Grid>
-        <tb:TaskbarIcon x:Name="notifyIcon" IconSource="/icon.ico" ToolTipText="APO Companion" 
+        <tb:TaskbarIcon x:Name="notifyIcon" IconSource="/icon.ico" ToolTipText="{DynamicResource WindowTitle}" 
                       TrayLeftMouseUp="NotifyIcon_TrayLeftMouseUp"
                       TrayContextMenuOpen="NotifyIcon_TrayContextMenuOpen">
             <tb:TaskbarIcon.ContextMenu>
                 <ContextMenu>
-                    <MenuItem x:Name="ShowHideMenuItem" Header="Показать виджет" Click="ShowHideMenuItem_Click"/>
-                    <MenuItem x:Name="RecentPresetsMenuItem" Header="Последние пресеты" Visibility="Collapsed"/>
-                    <MenuItem x:Name="AutorunMenuItem" Header="Добавить в автозапуск" Click="AutorunMenuItem_Click"/>
+                    <MenuItem x:Name="ShowHideMenuItem" Header="{DynamicResource ShowWidget}" Click="ShowHideMenuItem_Click"/>
+                    <MenuItem x:Name="RecentPresetsMenuItem" Header="{DynamicResource RecentPresets}" Visibility="Collapsed"/>
+                    <MenuItem Header="{DynamicResource ResetPosition}" Click="ResetPositionMenuItem_Click"/>
+
+                    <MenuItem Header="{DynamicResource MenuLanguage}">
+                        <MenuItem Header="Русский" Click="LanguageMenuItem_Click" Tag="ru-RU"/>
+                        <MenuItem Header="English" Click="LanguageMenuItem_Click" Tag="en-US"/>
+                    </MenuItem>
+
+                    <MenuItem Header="{DynamicResource MenuTheme}">
+                        <MenuItem Header="{DynamicResource ThemeLight}" Click="ThemeMenuItem_Click" Tag="Light"/>
+                        <MenuItem Header="{DynamicResource ThemeDark}" Click="ThemeMenuItem_Click" Tag="Dark"/>
+                    </MenuItem>
+
+                    <MenuItem x:Name="AutorunMenuItem" Header="{DynamicResource AddToAutorun}" Click="AutorunMenuItem_Click"/>
                     <Separator />
-                    <MenuItem Header="Сбросить положение" Click="ResetPositionMenuItem_Click"/>
-                    <MenuItem Header="Выход" Click="MenuItem_Exit_Click"/>
+                    <MenuItem Header="{DynamicResource Exit}" Click="MenuItem_Exit_Click"/>
                 </ContextMenu>
             </tb:TaskbarIcon.ContextMenu>
         </tb:TaskbarIcon>
@@ -42,25 +48,23 @@
                 </Grid.RowDefinitions>
 
                 <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
-                    <TextBlock Text="APO Companion" FontSize="22" FontWeight="SemiBold" VerticalAlignment="Center"/>
-                    <Button Style="{StaticResource MaterialDesignIconButton}" ToolTip="Свернуть в трей" HorizontalAlignment="Right" Click="MinimizeButton_Click" VerticalAlignment="Center" Margin="96,0,0,0">
+                    <TextBlock Text="{DynamicResource Header}" FontSize="22" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                    <Button Style="{StaticResource MaterialDesignIconButton}" ToolTip="{DynamicResource MinimizeTooltip}" HorizontalAlignment="Right" Click="MinimizeButton_Click" VerticalAlignment="Center" Margin="97,0,0,0">
                         <materialDesign:PackIcon Kind="WindowMinimize" />
                     </Button>
                 </StackPanel>
 
-                <TextBlock x:Name="StatusTextBlock" Grid.Row="1" Text="Сначала выберите папку с пресетами" 
+                <TextBlock x:Name="StatusTextBlock" Grid.Row="1" Text="{DynamicResource StatusInitial}" 
                            FontSize="12" Opacity="0.7" HorizontalAlignment="Center" Margin="0,5,0,5"/>
 
-                <ComboBox x:Name="presetsComboBox" Grid.Row="2" 
-                          materialDesign:HintAssist.Hint="Выберите пресет" 
-                          IsEnabled="False"
-                          Style="{StaticResource MaterialDesignFilledComboBox}" 
+                <ComboBox x:Name="presetsComboBox" Grid.Row="2" materialDesign:HintAssist.Hint="{DynamicResource ComboBoxHint}" 
+                          IsEnabled="False" Style="{StaticResource MaterialDesignFilledComboBox}" 
                           SelectionChanged="PresetsComboBox_SelectionChanged" FontSize="14"/>
 
                 <Button x:Name="SelectFolderButton" Grid.Row="3" Margin="0,15,0,0" Click="SelectFolderButton_Click">
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                        <materialDesign:PackIcon Kind="FolderOutline" Margin="0,0,8,0"/>
-                        <TextBlock Text="Выбрать папку"/>
+                        <materialDesign:PackIcon Kind="FolderOutline" Margin="0,2,8,0"/>
+                        <TextBlock Text="{DynamicResource SelectFolderButton}"/>
                     </StackPanel>
                 </Button>
             </Grid>

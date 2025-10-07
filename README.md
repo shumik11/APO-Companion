@@ -14,6 +14,7 @@ A compact and stylish widget for the Windows desktop that allows you to quickly 
 
 -   **Quick Switching:** Select equalizer presets directly from your desktop.
 -   **Stylish Interface:** A modern design that looks great on any wallpaper.
+-   **Multilingual Support:** The interface is available in English and Russian.
 -   **Tray Control:** Hide and show the widget or manage it through the system tray icon.
 -   **Recent Presets List:** Quickly access your most recently used configurations right from the tray menu.
 -   **Easy Startup Management:** Add or remove the application from Windows startup with a single click.

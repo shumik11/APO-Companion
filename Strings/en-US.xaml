@@ -1,0 +1,34 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <!-- Main Window -->
+    <system:String x:Key="WindowTitle">APO Companion</system:String>
+    <system:String x:Key="Header">APO Companion</system:String>
+    <system:String x:Key="MinimizeTooltip">Minimize to tray</system:String>
+    <system:String x:Key="StatusInitial">First, select a folder with presets</system:String>
+    <system:String x:Key="PresetsNotFound">No presets found in this folder</system:String>
+    <system:String x:Key="ComboBoxHint">Select a preset</system:String>
+    <system:String x:Key="SelectFolderButton">Select Folder</system:String>
+
+    <!-- Tray Menu -->
+    <system:String x:Key="ShowWidget">Show Widget</system:String>
+    <system:String x:Key="HideWidget">Hide Widget</system:String>
+    <system:String x:Key="RecentPresets">Recent Presets</system:String>
+    <system:String x:Key="ResetPosition">Reset Position</system:String>
+    <system:String x:Key="AddToAutorun">Add to startup</system:String>
+    <system:String x:Key="RemoveFromAutorun">Remove from startup</system:String>
+    <system:String x:Key="Exit">Exit</system:String>
+    <system:String x:Key="MenuLanguage">Language</system:String>
+    <system:String x:Key="MenuTheme">Theme</system:String>
+    <system:String x:Key="ThemeLight">Light</system:String>
+    <system:String x:Key="ThemeDark">Dark</system:String>
+
+    <!-- Messages -->
+    <system:String x:Key="AutorunAdded">Application added to startup.</system:String>
+    <system:String x:Key="AutorunAddedBlob">Startup</system:String>
+    <system:String x:Key="AutorunRemoved">Application removed from startup.</system:String>
+    <system:String x:Key="AutorunRemovedBlob">Startup</system:String>
+    <system:String x:Key="AutorunError">Failed to change startup settings:</system:String>
+
+</ResourceDictionary>
