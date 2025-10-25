@@ -25,13 +25,11 @@ A compact and stylish widget for the Windows desktop that allows you to quickly 
 -   **Quick Switching:** Select equalizer presets directly from your desktop.
 -   **Stylish Interface:** A modern design that looks great on any wallpaper.
 -   **Multilingual Support:** The interface is available in English and Russian.
--   **Visibility Control:** Hide and show the widget through the system tray icon or the widget button.
+-   **Tray Control:** Hide and show the widget or manage it through the system tray icon.
+-   **Recent Presets List:** Quickly access your most recently used configurations right from the tray menu.
 -   **Easy Startup Management:** Add or remove the application from Windows startup with a single click.
--   **Smart Setup:** Automatically finds your Equalizer APO installation.
-
-## 📥 Installation
-
-No installation needed! The application is **portable**.
+-   **Customizable Transparency:** The widget is semi-transparent and becomes opaque on mouse hover.
+-   **Smart Setup:** Automatically finds Equalizer APO or asks for the path if it's installed in a non-standard location.
 
 1.  Go to the [**Releases Page**](https://github.com/shumik11/APO-Companion/releases).
 2.  Download the `.exe` file from the latest release.

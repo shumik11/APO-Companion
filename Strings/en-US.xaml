@@ -30,5 +30,9 @@
     <system:String x:Key="AutorunRemoved">Application removed from startup.</system:String>
     <system:String x:Key="AutorunRemovedBlob">Startup</system:String>
     <system:String x:Key="AutorunError">Failed to change startup settings:</system:String>
+    <system:String x:Key="Loading">Loading...</system:String>
+    <system:String x:Key="Error">Error</system:String>
+    <system:String x:Key="PresetApplyError">Preset apply error</system:String>
+    <system:String x:Key="PresetReadError">Preset read error</system:String>
 
 </ResourceDictionary>

@@ -9,7 +9,7 @@
         Title="{DynamicResource WindowTitle}" Height="230" Width="350"
         WindowStyle="None" AllowsTransparency="True" Background="Transparent"
         WindowStartupLocation="Manual" ShowInTaskbar="False" ShowActivated="False" Topmost="False"
-        MouseEnter="Window_MouseEnter" MouseLeave="Window_MouseLeave" Closing="Window_Closing">
+        MouseEnter="Window_MouseEnter" MouseLeave="Window_MouseLeave" Closing="Window_Closing" Loaded="Window_Loaded">
 
     <Grid>
         <tb:TaskbarIcon x:Name="notifyIcon" IconSource="/icon.ico" ToolTipText="{DynamicResource WindowTitle}" 

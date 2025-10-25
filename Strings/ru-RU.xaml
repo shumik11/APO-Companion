@@ -30,5 +30,9 @@
     <system:String x:Key="AutorunRemoved">Приложение убрано из автозапуска.</system:String>
     <system:String x:Key="AutorunRemovedBlob">Автозапуск</system:String>
     <system:String x:Key="AutorunError">Не удалось изменить настройки автозапуска:</system:String>
+    <system:String x:Key="Loading">Загрузка...</system:String>
+    <system:String x:Key="Error">Ошибка</system:String>
+    <system:String x:Key="PresetApplyError">Ошибка применения пресета</system:String>
+    <system:String x:Key="PresetReadError">Ошибка чтения пресета</system:String>
 
 </ResourceDictionary>
