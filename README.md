@@ -31,6 +31,10 @@ A compact and stylish widget for the Windows desktop that allows you to quickly 
 -   **Customizable Transparency:** The widget is semi-transparent and becomes opaque on mouse hover.
 -   **Smart Setup:** Automatically finds Equalizer APO or asks for the path if it's installed in a non-standard location.
 
+## 📥 Installation
+
+No installation required! The app is **portable**.
+
 1.  Go to the [**Releases Page**](https://github.com/shumik11/APO-Companion/releases).
 2.  Download the `.exe` file from the latest release.
 3.  Run it.
