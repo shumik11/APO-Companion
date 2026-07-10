@@ -4,7 +4,9 @@
   <a href="README.md">
     <img src="https://img.shields.io/badge/Read-in%20English-blue?style=for-the-badge&logo=read-the-docs" alt="Русская версия"/>
   </a>
-  <img src="https://img.shields.io/github/v/release/shumik11/APO-Companion?style=for-the-badge" alt="Последний релиз"/>
+  <a href="https://github.com/shumik11/APO-Companion/releases/latest">
+    <img src="https://img.shields.io/github/v/release/shumik11/APO-Companion?style=for-the-badge" alt="Последний релиз"/>
+  </a>
 </p>
 
 Компактный и стильный виджет для рабочего стола Windows, позволяющий быстро переключаться между конфигурационными файлами (пресетами) для Equalizer APO.

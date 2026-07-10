@@ -4,7 +4,9 @@
   <a href="README_ru.md">
     <img src="https://img.shields.io/badge/Читать-на%20Русском-blue?style=for-the-badge&logo=read-the-docs" alt="Русская версия"/>
   </a>
-  <img src="https://img.shields.io/github/v/release/shumik11/APO-Companion?style=for-the-badge" alt="Latest Release"/>
+  <a href="https://github.com/shumik11/APO-Companion/releases/latest">
+    <img src="https://img.shields.io/github/v/release/shumik11/APO-Companion?style=for-the-badge" alt="Latest Release"/>
+  </a>
 </p>
 
 A compact and stylish widget for the Windows desktop that allows you to quickly switch between configuration files (presets) for Equalizer APO. **No installation required.**
