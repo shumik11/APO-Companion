@@ -1,4 +1,4 @@
-﻿# APO Companion
+# APO Companion
 
 <p align="center">
   <a href="README_ru.md">
@@ -26,6 +26,7 @@ A compact and stylish widget for the Windows desktop that allows you to quickly 
 -   **Stylish Interface:** A modern design that looks great on any wallpaper.
 -   **Multilingual Support:** The interface is available in English and Russian.
 -   **Tray Control:** Hide and show the widget or manage it through the system tray icon.
+-   **Quick Presets Panel:** A new horizontal row on the widget showing your top 3 most recently used presets for one-click switching.
 -   **Recent Presets List:** Quickly access your most recently used configurations right from the tray menu.
 -   **Easy Startup Management:** Add or remove the application from Windows startup with a single click.
 -   **Customizable Transparency:** The widget is semi-transparent and becomes opaque on mouse hover.

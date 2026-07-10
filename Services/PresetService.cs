@@ -22,14 +22,32 @@ namespace APO.Services
         public async Task ApplyPresetAsync(string? presetsFolderPath, string? equalizerApoConfigPath, string presetFileName)
         {
             if (string.IsNullOrEmpty(presetsFolderPath) || string.IsNullOrEmpty(equalizerApoConfigPath))
-                return;
+                throw new System.ArgumentException("Путь к пресетам или конфигурации не задан.");
 
             string fullPresetPath = Path.Combine(presetsFolderPath, presetFileName);
             if (!File.Exists(fullPresetPath))
-                return;
+                throw new FileNotFoundException($"Файл пресета не найден: {fullPresetPath}");
 
             string content = $"Include: {fullPresetPath}";
-            await File.WriteAllTextAsync(equalizerApoConfigPath, content);
+            
+            const int maxRetries = 3;
+            for (int i = 0; i < maxRetries; i++)
+            {
+                try
+                {
+                    await File.WriteAllTextAsync(equalizerApoConfigPath, content);
+                    return;
+                }
+                catch (IOException)
+                {
+                    if (i == maxRetries - 1) throw;
+                    await Task.Delay(50);
+                }
+                catch (System.UnauthorizedAccessException)
+                {
+                    throw new System.UnauthorizedAccessException("Отказано в доступе к файлу конфигурации. Попробуйте перезапустить программу от имени администратора.");
+                }
+            }
         }
 
         public async Task<string?> SyncWithCurrentConfigAsync(string equalizerApoConfigPath, List<string> presetFiles)
@@ -37,21 +55,46 @@ namespace APO.Services
             if (string.IsNullOrEmpty(equalizerApoConfigPath) || !File.Exists(equalizerApoConfigPath))
                 return null;
 
-            try
+            const int maxRetries = 3;
+            for (int i = 0; i < maxRetries; i++)
             {
-                string currentConfig = await File.ReadAllTextAsync(equalizerApoConfigPath);
-                return presetFiles.FirstOrDefault(presetFile => currentConfig.Contains(presetFile));
-            }
-            catch (IOException)
-            {
-                // Ignore
-            }
-            catch (UnauthorizedAccessException)
-            {
-                // Ignore
+                try
+                {
+                    string currentConfig = await File.ReadAllTextAsync(equalizerApoConfigPath);
+                    return presetFiles.FirstOrDefault(presetFile => currentConfig.Contains(presetFile));
+                }
+                catch (IOException) when (i < maxRetries - 1)
+                {
+                    await Task.Delay(50);
+                }
+                catch (System.UnauthorizedAccessException)
+                {
+                    break;
+                }
             }
 
             return null;
+        }
+
+        public async Task<bool> HasWriteAccessAsync(string filePath)
+        {
+            if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath))
+                return false;
+
+            return await Task.Run(() =>
+            {
+                try
+                {
+                    using (var fs = File.Open(filePath, FileMode.Open, FileAccess.Write, FileShare.ReadWrite))
+                    {
+                        return true;
+                    }
+                }
+                catch
+                {
+                    return false;
+                }
+            });
         }
     }
 }

@@ -1,67 +1,121 @@
-﻿<Window x:Class="APO.MainWindow"
+<Window x:Class="APO.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:tb="http://www.hardcodet.net/taskbar"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:converters="clr-namespace:APO.Converters"
+        x:Name="mainWindow"
         mc:Ignorable="d"
         Title="{DynamicResource WindowTitle}" Height="230" Width="350"
         WindowStyle="None" AllowsTransparency="True" Background="Transparent"
         WindowStartupLocation="Manual" ShowInTaskbar="False" ShowActivated="False" Topmost="False"
         MouseEnter="Window_MouseEnter" MouseLeave="Window_MouseLeave" Closing="Window_Closing" Loaded="Window_Loaded">
 
+    <Window.Resources>
+        <converters:FileNameWithoutExtensionConverter x:Key="FileNameWithoutExtensionConverter"/>
+        <converters:AutorunHeaderConverter x:Key="AutorunHeaderConverter"/>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+
+        <!-- ContextMenu defined in Resources to avoid circular dependency -->
+        <ContextMenu x:Key="TrayContextMenu" DataContext="{Binding DataContext, Source={x:Reference mainWindow}}">
+            <MenuItem Header="{DynamicResource ShowWidget}" Click="ShowHideMenuItem_Click"/>
+            <MenuItem Header="{DynamicResource RecentPresets}" ItemsSource="{Binding RecentPresetsList}" x:Name="RecentPresetsMenu">
+                <MenuItem.ItemContainerStyle>
+                    <Style TargetType="MenuItem">
+                        <Setter Property="Header" Value="{Binding Converter={StaticResource FileNameWithoutExtensionConverter}}"/>
+                        <Setter Property="Command" Value="{Binding DataContext.ApplyPresetCommand, Source={x:Reference mainWindow}}"/>
+                        <Setter Property="CommandParameter" Value="{Binding}"/>
+                    </Style>
+                </MenuItem.ItemContainerStyle>
+            </MenuItem>
+            <MenuItem Header="{DynamicResource ResetPosition}" Click="ResetPositionMenuItem_Click"/>
+
+            <MenuItem Header="{DynamicResource MenuLanguage}">
+                <MenuItem Header="Русский" Command="{Binding ChangeLanguageCommand}" CommandParameter="ru-RU"/>
+                <MenuItem Header="English" Command="{Binding ChangeLanguageCommand}" CommandParameter="en-US"/>
+            </MenuItem>
+
+            <MenuItem Header="{DynamicResource MenuTheme}">
+                <MenuItem Header="{DynamicResource ThemeLight}" Command="{Binding ChangeThemeCommand}" CommandParameter="Light"/>
+                <MenuItem Header="{DynamicResource ThemeDark}" Command="{Binding ChangeThemeCommand}" CommandParameter="Dark"/>
+            </MenuItem>
+
+            <MenuItem Header="{Binding IsInAutorun, Converter={StaticResource AutorunHeaderConverter}}" Command="{Binding ToggleAutorunCommand}"/>
+            <Separator />
+            <MenuItem Header="{DynamicResource Exit}" Click="MenuItem_Exit_Click"/>
+        </ContextMenu>
+    </Window.Resources>
+
     <Grid>
+        <!-- Taskbar Icon -->
         <tb:TaskbarIcon x:Name="notifyIcon" IconSource="/icon.ico" ToolTipText="{DynamicResource WindowTitle}" 
                       TrayLeftMouseUp="NotifyIcon_TrayLeftMouseUp"
-                      TrayContextMenuOpen="NotifyIcon_TrayContextMenuOpen">
-            <tb:TaskbarIcon.ContextMenu>
-                <ContextMenu>
-                    <MenuItem x:Name="ShowHideMenuItem" Header="{DynamicResource ShowWidget}" Click="ShowHideMenuItem_Click"/>
-                    <MenuItem x:Name="RecentPresetsMenuItem" Header="{DynamicResource RecentPresets}" Visibility="Collapsed"/>
-                    <MenuItem Header="{DynamicResource ResetPosition}" Click="ResetPositionMenuItem_Click"/>
+                      ContextMenu="{StaticResource TrayContextMenu}"/>
 
-                    <MenuItem Header="{DynamicResource MenuLanguage}">
-                        <MenuItem Header="Русский" Click="LanguageMenuItem_Click" Tag="ru-RU"/>
-                        <MenuItem Header="English" Click="LanguageMenuItem_Click" Tag="en-US"/>
-                    </MenuItem>
-
-                    <MenuItem Header="{DynamicResource MenuTheme}">
-                        <MenuItem Header="{DynamicResource ThemeLight}" Click="ThemeMenuItem_Click" Tag="Light"/>
-                        <MenuItem Header="{DynamicResource ThemeDark}" Click="ThemeMenuItem_Click" Tag="Dark"/>
-                    </MenuItem>
-
-                    <MenuItem x:Name="AutorunMenuItem" Header="{DynamicResource AddToAutorun}" Click="AutorunMenuItem_Click"/>
-                    <Separator />
-                    <MenuItem Header="{DynamicResource Exit}" Click="MenuItem_Exit_Click"/>
-                </ContextMenu>
-            </tb:TaskbarIcon.ContextMenu>
-        </tb:TaskbarIcon>
-
+        <!-- Main Card -->
         <materialDesign:Card x:Name="WidgetCard" Padding="15" UniformCornerRadius="15">
             <Grid MouseLeftButtonDown="Window_MouseLeftButtonDown">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/> <!-- Header -->
+                    <RowDefinition Height="Auto"/> <!-- Status / Warning -->
+                    <RowDefinition Height="*"/>    <!-- ComboBox -->
+                    <RowDefinition Height="Auto"/> <!-- Quick Presets -->
+                    <RowDefinition Height="Auto"/> <!-- Select Folder -->
                 </Grid.RowDefinitions>
 
-                <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
-                    <TextBlock Text="{DynamicResource Header}" FontSize="22" FontWeight="SemiBold" VerticalAlignment="Center"/>
-                    <Button Style="{StaticResource MaterialDesignIconButton}" ToolTip="{DynamicResource MinimizeTooltip}" HorizontalAlignment="Right" Click="MinimizeButton_Click" VerticalAlignment="Center" Margin="97,0,0,0">
+                <!-- Header with Active Status Dot -->
+                <DockPanel Grid.Row="0" LastChildFill="False" Margin="0,0,0,8">
+                    <TextBlock Text="{DynamicResource Header}" FontSize="22" FontWeight="SemiBold" VerticalAlignment="Center" DockPanel.Dock="Left"/>
+                    <Button Style="{StaticResource MaterialDesignIconButton}" ToolTip="{DynamicResource MinimizeTooltip}" Click="MinimizeButton_Click" VerticalAlignment="Center" DockPanel.Dock="Right">
                         <materialDesign:PackIcon Kind="WindowMinimize" />
                     </Button>
+                </DockPanel>
+
+                <!-- Status / Warnings -->
+                <StackPanel Grid.Row="1" Margin="0,0,0,5">
+                    <TextBlock x:Name="StatusTextBlock" Text="{Binding StatusText}" 
+                               FontSize="12" Opacity="0.7" HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap"
+                               Visibility="{Binding IsStatusVisible, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                    
+                    <!-- Write permission warning -->
+                    <Border CornerRadius="8" Background="#20FF0000" BorderBrush="#33FF0000" BorderThickness="1" Padding="8,4" Margin="0,4,0,0"
+                            Visibility="{Binding HasNoWriteAccess, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <materialDesign:PackIcon Kind="AlertCircleOutline" Foreground="#FFFF4444" Width="16" Height="16" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                            <TextBlock Text="{DynamicResource NoWriteAccessWarning}" Foreground="#FFFF4444" FontSize="11" TextWrapping="Wrap" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Medium"/>
+                        </StackPanel>
+                    </Border>
                 </StackPanel>
 
-                <TextBlock x:Name="StatusTextBlock" Grid.Row="1" Text="{DynamicResource StatusInitial}" 
-                           FontSize="12" Opacity="0.7" HorizontalAlignment="Center" Margin="0,5,0,5"/>
-
+                <!-- Presets ComboBox -->
                 <ComboBox x:Name="presetsComboBox" Grid.Row="2" materialDesign:HintAssist.Hint="{DynamicResource ComboBoxHint}" 
-                          IsEnabled="False" Style="{StaticResource MaterialDesignFilledComboBox}" 
-                          SelectionChanged="PresetsComboBox_SelectionChanged" FontSize="14"/>
+                          ItemsSource="{Binding Presets}" SelectedItem="{Binding SelectedPreset}" IsEnabled="{Binding IsPresetsEnabled}"
+                          Style="{StaticResource MaterialDesignFilledComboBox}" FontSize="14" VerticalAlignment="Center"/>
 
-                <Button x:Name="SelectFolderButton" Grid.Row="3" Margin="0,15,0,0" Click="SelectFolderButton_Click">
+                <!-- Quick Presets Row -->
+                <ItemsControl ItemsSource="{Binding RecentPresetsTop3}" Grid.Row="3" Margin="0,8,0,0" 
+                              Visibility="{Binding HasRecentPresets, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Rows="1" Columns="3"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Button Content="{Binding Converter={StaticResource FileNameWithoutExtensionConverter}}"
+                                    Command="{Binding DataContext.ApplyPresetCommand, Source={x:Reference mainWindow}}"
+                                    CommandParameter="{Binding}"
+                                    Style="{StaticResource MaterialDesignOutlinedButton}"
+                                    FontSize="10" Height="26" Padding="4,0" Margin="3,0"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <!-- Select Folder Button -->
+                <Button x:Name="SelectFolderButton" Grid.Row="4" Margin="0,12,0,0" 
+                        Command="{Binding SelectFolderCommand}" IsEnabled="{Binding IsSelectFolderEnabled}">
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                         <materialDesign:PackIcon Kind="FolderOutline" Margin="0,2,8,0"/>
                         <TextBlock Text="{DynamicResource SelectFolderButton}"/>
