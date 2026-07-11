@@ -147,6 +147,7 @@ namespace APO
             if (e.ButtonState == MouseButtonState.Pressed)
             {
                 DragMove();
+                _settingsService.SaveWindowPosition(this.Top, this.Left);
             }
         }
 

@@ -276,6 +276,7 @@ namespace APO.ViewModels
                 else
                     StatusText = GetResourceString("StatusInitial");
             }
+            OnPropertyChanged(nameof(IsInAutorun));
         }
 
         [RelayCommand]
