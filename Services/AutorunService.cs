@@ -15,8 +15,10 @@ namespace APO.Services
 
         public void SetAutorun(bool enable)
         {
-            using (RegistryKey key = Registry.CurrentUser.OpenSubKey(Constants.AutorunRegistryKey, true)!)
+            using (RegistryKey? key = Registry.CurrentUser.OpenSubKey(Constants.AutorunRegistryKey, true))
             {
+                if (key == null) return;
+
                 if (enable)
                 {
                     string? exePath = Environment.ProcessPath;

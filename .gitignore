@@ -21,4 +21,11 @@ bld/
 .vs/
 
 # User-specific files (like your saved paths)
-*user.configcrash.txt
+*user.config
+
+# Ignore garbage files
+crash.txt
+publish_output/
+CHANGELOG.md
+CHANGELOG_ru.md
+README.pdf

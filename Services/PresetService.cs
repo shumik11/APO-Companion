@@ -61,7 +61,10 @@ namespace APO.Services
                 try
                 {
                     string currentConfig = await File.ReadAllTextAsync(equalizerApoConfigPath);
-                    return presetFiles.FirstOrDefault(presetFile => currentConfig.Contains(presetFile));
+                    return presetFiles.FirstOrDefault(presetFile => 
+                        currentConfig.Contains($"\\{presetFile}", System.StringComparison.OrdinalIgnoreCase) || 
+                        currentConfig.Contains($"/{presetFile}", System.StringComparison.OrdinalIgnoreCase) || 
+                        currentConfig.Contains($" {presetFile}", System.StringComparison.OrdinalIgnoreCase));
                 }
                 catch (IOException) when (i < maxRetries - 1)
                 {
